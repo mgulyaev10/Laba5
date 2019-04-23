@@ -150,8 +150,8 @@ public class Troll extends Essence implements SkillsMove, SkillsState, SkillsMoo
 
     public int sumWeightOfThings() {
         int w = 0;
-        for (int k = 0; k < thingsInHands.size(); k++) {
-            w += thingsInHands.get(k).getWeight();
+        for (Thing thingsInHand : thingsInHands) {
+            w += thingsInHand.getWeight();
         }
         return w;
     }
@@ -179,6 +179,10 @@ public class Troll extends Essence implements SkillsMove, SkillsState, SkillsMoo
         if (temp.getHP() != this.getHP())
             return false;
         if (temp.getHungry() != this.getHungry())
+            return false;
+        if (temp.thingsInHands.size() != this.thingsInHands.size())
+            return false;
+        if (this.sumWeightOfThings() != temp.sumWeightOfThings())
             return false;
         return true;
     }

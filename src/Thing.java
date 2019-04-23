@@ -26,6 +26,25 @@ public class Thing {
         return weight;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (obj.getClass() != this.getClass())
+            return false;
+        Thing temp = (Thing) obj;
+        if (!temp.getName().equals(this.getName()))
+            return false;
+        if (this.getCondition() != temp.getCondition())
+            return false;
+        if (this.getWeight() != temp.getWeight())
+            return false;
+        return true;
+    }
+
+    @Override
     public String toString() {
         return "Thing " + name + ". Condition is " + condition.toString() + ". Weight = " + weight;
     }

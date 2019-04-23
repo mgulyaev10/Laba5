@@ -1,12 +1,20 @@
 import java.io.File;
-import java.io.IOException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException {
-        File file = new File(System.getenv("TrollPath"));
+    public static void main(String[] args) {
+        File file = new File("");
+        try {
+            file = new File(System.getenv(args[0]));
+        } catch (NullPointerException ex) {
+            finishProgramDueToError();
+        } catch (IndexOutOfBoundsException ex) {
+            System.err.println("Введите имя переменной окружения, в которой хранится путь к коллекции.");
+            finishProgramDueToError();
+        }
+
         CollectionCase collectionCase = new CollectionCase();
         FileManager fileManager = new FileManager(collectionCase, file.getPath());
 
@@ -27,13 +35,17 @@ public class Main {
                     System.err.println("Ошибка: введённая команда не найдена.");
                 }
             } catch (NoSuchElementException ex) {
-                System.err.println("Ошибка. Завершение программы. " +
-                        "Для продолжения работы запустите программу заново и" +
-                        " введите \"help\" для получения справки.");
-                System.exit(0);
+                finishProgramDueToError();
             }
         }
 
+    }
+
+    public static void finishProgramDueToError() {
+        System.err.println("Ошибка. Завершение программы. " +
+                "Для продолжения работы запустите программу заново и" +
+                " введите \"help\" для получения справки.");
+        System.exit(0);
     }
 
 }

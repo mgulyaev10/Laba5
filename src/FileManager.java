@@ -1,3 +1,7 @@
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -50,13 +54,26 @@ public class FileManager {
     public boolean saveCollection(ArrayDeque<Troll> collection) {
         JSONArray array = new JSONArray();
         collection.forEach(o -> array.put(o.getJSON()));
+
+        String prettyJsonString = prettyJSONFromJsonArray(array);
+
         try (Writer writer = new FileWriter(filePath)) {
-            writer.write(array.toString());
+            writer.write(prettyJsonString);
         } catch (IOException ioe) {
             System.out.println("Ошибка при сохранении коллекции");
             return false;
         }
         return true;
+    }
+
+    public String prettyJSONFromJsonArray(JSONArray array) {
+
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        JsonParser jp = new JsonParser();
+        JsonElement je = jp.parse(array.toString());
+        String prettyJsonString = gson.toJson(je);
+
+        return prettyJsonString;
     }
 
     public CollectionCase getCollectionCase() {
