@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+
 public class Place implements PlaceActions {
     private int degree;
     private Weather weather;
@@ -14,67 +15,79 @@ public class Place implements PlaceActions {
         Cloudy("На улице облачно.");
 
         private String currentWeather;
+
         Weather(String s) {
             currentWeather = s;
         }
 
-        public String russianWeather(){
+        public String russianWeather() {
             return currentWeather;
         }
     }
 
 
     //constructors
-    public Place(){
-        degree=15;
-        weather=Weather.Cloudy;
-        cold=false;
-        wind=false;
-        season=Season.Autumn;
+    public Place() {
+        degree = 15;
+        weather = Weather.Cloudy;
+        cold = false;
+        wind = false;
+        season = Season.Autumn;
     }
-    public Place(int degree, Season s, Weather w){
-        this.degree=degree;
-        weather=w;
-        season=s;
-        if (degree<20){
-            if (degree<15){
-                cold=true;
-                wind=true;
+
+    public Place(int degree, Season s, Weather w) {
+        this.degree = degree;
+        weather = w;
+        season = s;
+        if (degree < 20) {
+            if (degree < 15) {
+                cold = true;
+                wind = true;
             } else {
-                cold=false;
-                wind=true;
+                cold = false;
+                wind = true;
             }
-        } else{
-            cold=false;
-            wind=false;
+        } else {
+            cold = false;
+            wind = false;
         }
     }
     //end constructors
 
     //own Methods
-    public void setDegree(int d){
-        degree=d;
+    public void setDegree(int d) {
+        degree = d;
     }
-    public void addEnvironment(Thing e){
+
+    public void addEnvironment(Thing e) {
         environment.add(e);
     }
-    public String coldOrWarm(){
-        if (cold) {return "Холодно.";}
-        else{ return "Тепло.";}
+
+    public String coldOrWarm() {
+        if (cold) {
+            return "Холодно.";
+        } else {
+            return "Тепло.";
+        }
     }
     //end own Methods
 
     //implements PlaceActions
-    public int getDegree(){
+    public int getDegree() {
         return degree;
     }
-    public ArrayList<Thing> getEnvironment(){
+
+    public ArrayList<Thing> getEnvironment() {
         return environment;
     }
-    public Weather getStateWeather(){
+
+    public Weather getStateWeather() {
         return weather;
     }
-    public Season getSeason(){return season;}
+
+    public Season getSeason() {
+        return season;
+    }
     //end PlaceActions
 
 }

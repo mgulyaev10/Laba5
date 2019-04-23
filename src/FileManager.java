@@ -21,7 +21,7 @@ public class FileManager {
 
     public Deque<Troll> getCollectionFromFile() {
         Deque<Troll> trolls = new ArrayDeque<>();
-        try(Reader reader = new FileReader(filePath)) {
+        try (Reader reader = new FileReader(filePath)) {
             Scanner scanner = new Scanner(reader);
             CharSequence content = new StringBuilder();
             while (scanner.hasNext()) {
@@ -32,7 +32,7 @@ public class FileManager {
                 System.err.println("Файл с коллекцией пуст.");
             } else {
                 JSONArray array = new JSONArray(content.toString());
-                array.forEach(o->trolls.add(new Troll((JSONObject)o)));
+                array.forEach(o -> trolls.add(new Troll((JSONObject) o)));
             }
         } catch (FileNotFoundException fnfEx) {
             System.err.println("Файл с коллекцией не найден.");

@@ -4,11 +4,11 @@ import java.util.Deque;
 public class CollectionCase {
     private Deque<Troll> collection;
 
-    public CollectionCase(){
+    public CollectionCase() {
         collection = new ArrayDeque<Troll>();
     }
 
-    public Deque<Troll> getCollection(){
+    public Deque<Troll> getCollection() {
         return collection;
     }
 }

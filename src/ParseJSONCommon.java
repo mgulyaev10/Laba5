@@ -5,7 +5,7 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 
 public class ParseJSONCommon {
-    class TrollFromJSON{
+    class TrollFromJSON {
         public int age;
         public String name;
         public int HP;
@@ -13,10 +13,11 @@ public class ParseJSONCommon {
         public boolean ableToSpeak;
         public boolean isSit;
         public boolean isSad;
-        public Type things = new TypeToken<ArrayDeque<Troll>>(){}.getType();
+        public Type things = new TypeToken<ArrayDeque<Troll>>() {
+        }.getType();
     }
 
-    class ThingFromJSON{
+    class ThingFromJSON {
         private Condition condition;
         private String name;
         private int weight;

@@ -5,10 +5,12 @@ public enum Season {
     Autumn("На улице осень, листья падают с деревьев.");
 
     private String currentSeason;
-    Season(String s){
-        currentSeason=s;
+
+    Season(String s) {
+        currentSeason = s;
     }
-    public String russianSeason(){
+
+    public String russianSeason() {
         return currentSeason;
     }
 }
