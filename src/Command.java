@@ -13,10 +13,14 @@ public enum Command {
      */
     remove_last((manager, data) -> {
         ArrayDeque<Troll> trolls = (ArrayDeque<Troll>) manager.getCollectionFromFile();
-        trolls.removeLast();
-        manager.saveCollection(trolls);
-        manager.updateCollection();
-        System.out.println("Команда успешно выполнена");
+        if (trolls.size() > 0) {
+            trolls.removeLast();
+            manager.saveCollection(trolls);
+            manager.updateCollection();
+            System.out.println("Команда успешно выполнена");
+        } else {
+            System.out.println("Коллекция пуста.");
+        }
     }),
     /**
      * Удаление элемента, соответствуещему введённому JSON.
@@ -25,10 +29,15 @@ public enum Command {
         try {
             JSONObject jsonObject = new JSONObject(data);
             ArrayDeque<Troll> trolls = (ArrayDeque<Troll>) manager.getCollectionFromFile();
-            if (trolls.remove(new Troll(jsonObject))) {
+            Troll temp = new Troll(jsonObject);
+            if (trolls.remove(temp)) {
+                int count = 1;
+                while (trolls.remove(temp)) {
+                    count++;
+                }
                 manager.saveCollection(trolls);
                 manager.updateCollection();
-                System.out.println("Команда успешно выполнена");
+                System.out.println("Команда успешно выполнена. Удалено " + count + " троллей, соответствующих JSON.");
             } else {
                 System.err.println("Тролля, соответствующему введённому JSON не найдено.");
             }
@@ -65,15 +74,21 @@ public enum Command {
             ArrayDeque<Troll> trolls = (ArrayDeque<Troll>) manager.getCollectionFromFile();
             JSONObject jsonObject = new JSONObject(data);
             Troll t = new Troll(jsonObject);
-            trolls.forEach(o -> {
+            int count = 0;
+            for (Troll o : trolls) {
                 if (o.compareTo(t) < 0) {
                     trolls.remove(o);
+                    count++;
                     System.out.println("Удаление элемента " + o + "...");
                 }
-            });
+            }
             manager.saveCollection(trolls);
             manager.updateCollection();
-            System.out.println("Команда успешно выполнена");
+            if (count > 0) {
+                System.out.println("Команда успешно выполнена. Удалено " + count + " эл-тов меньших введённого.");
+            } else {
+                System.out.println("В коллекции нет элементов, меньших введённого.");
+            }
         } catch (JSONException ex) {
             System.err.println("Ошибка: введите корректный json-объект");
         }
