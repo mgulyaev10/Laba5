@@ -207,6 +207,7 @@ public class Troll extends Essence implements SkillsMove, SkillsState, SkillsMoo
         } else {
             result = result * rnd + 33;
         }
+        result = result * rnd + thingsInHands.size() * sumWeightOfThings();
         result = result * rnd + getName().hashCode();
         return result;
     }

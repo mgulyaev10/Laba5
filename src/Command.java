@@ -68,6 +68,7 @@ public enum Command {
             trolls.forEach(o -> {
                 if (o.compareTo(t) < 0) {
                     trolls.remove(o);
+                    System.out.println("Удаление элемента " + o + "...");
                 }
             });
             manager.saveCollection(trolls);

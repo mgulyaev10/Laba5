@@ -1,19 +1,5 @@
 [
   {
-    "isSad": true,
-    "name": "Петя",
-    "HP": 100,
-    "things": [
-      {
-        "condition": "Solid",
-        "name": "Соль",
-        "weight": 20
-      }
-    ],
-    "isSit": true,
-    "age": 10
-  },
-  {
     "isSad": false,
     "name": "Вася",
     "HP": 50,
@@ -23,20 +9,6 @@
         "name": "Бутер",
         "weight": 100
       },
-      {
-        "condition": "Solid",
-        "name": "Соль",
-        "weight": 20
-      }
-    ],
-    "isSit": true,
-    "age": 10
-  },
-  {
-    "isSad": true,
-    "name": "Петя",
-    "HP": 100,
-    "things": [
       {
         "condition": "Solid",
         "name": "Соль",
