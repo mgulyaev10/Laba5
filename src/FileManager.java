@@ -39,9 +39,10 @@ public class FileManager {
                 array.forEach(o -> trolls.add(new Troll((JSONObject) o)));
             }
         } catch (FileNotFoundException fnfEx) {
-            System.err.println("Файл с коллекцией не найден.");
+            System.err.println("Ошибка. Файл с коллекцией не найден. Введите имя переменной окружения, в которой хранится путь к коллекции.");
+            Main.finishProgramDueToError();
         } catch (IOException ioe) {
-            System.err.println("Что-то пошло не так при закрытии файла.");
+            System.err.println("Ошибка. Что-то пошло не так при закрытии файла.");
         }
         return trolls;
     }

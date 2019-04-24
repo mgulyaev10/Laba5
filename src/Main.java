@@ -8,10 +8,8 @@ public class Main {
         File file = new File("");
         try {
             file = new File(System.getenv(args[0]));
-        } catch (NullPointerException ex) {
-            finishProgramDueToError();
-        } catch (IndexOutOfBoundsException ex) {
-            System.err.println("Введите имя переменной окружения, в которой хранится путь к коллекции.");
+        } catch (NullPointerException | IndexOutOfBoundsException ex) {
+            System.err.println("Ошибка. Введите имя переменной окружения, в которой хранится путь к коллекции.");
             finishProgramDueToError();
         }
 
@@ -20,6 +18,7 @@ public class Main {
 
         fileManager.updateCollection();
 
+        System.out.println("Программа успешно запущена. Чтобы получить справку, введите \"help\"");
         Scanner scanner = new Scanner(System.in);
         String command = "";
 
@@ -38,11 +37,10 @@ public class Main {
                 finishProgramDueToError();
             }
         }
-
     }
 
     public static void finishProgramDueToError() {
-        System.err.println("Ошибка. Завершение программы. " +
+        System.err.println("Завершение программы. " +
                 "Для продолжения работы запустите программу заново и" +
                 " введите \"help\" для получения справки.");
         System.exit(0);
