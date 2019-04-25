@@ -8,24 +8,28 @@ public class Troll extends Essence implements SkillsMove, SkillsState, SkillsMoo
     private boolean isSit;
     private boolean isSad;
     private List<Thing> thingsInHands = new ArrayList<>();
+    private int sumWeightOfThings;
 
     //constructors
     public Troll() {
         super();
         isSit = true;
         isSad = true;
+        sumWeightOfThings = 0;
     }
 
     public Troll(int age, String name) {
         super(age, name);
         isSit = true;
         isSad = true;
+        sumWeightOfThings = 0;
     }
 
     public Troll(int age, String name, int HP) {
         super(age, name, HP);
         isSit = true;
         isSad = true;
+        sumWeightOfThings = 0;
     }
 
     public Troll(JSONObject json) {
@@ -38,6 +42,7 @@ public class Troll extends Essence implements SkillsMove, SkillsState, SkillsMoo
             Thing t = new Thing(object.getString("name"), Condition.valueOf(object.getString("condition")),
                     object.getInt("weight"));
             thingsInHands.add(t);
+            sumWeightOfThings += t.getWeight();
         }
     }
     //end constructors
@@ -52,11 +57,20 @@ public class Troll extends Essence implements SkillsMove, SkillsState, SkillsMoo
             return 1;
         } else if (this.thingsInHands.size() < o.thingsInHands.size()) {
             return -1;
-        } else if (this.sumWeightOfThings() > o.sumWeightOfThings()) {
+        } else if (sumWeightOfThings > o.getSumWeightOfThings()) {
             return 1;
-        } else if (this.sumWeightOfThings() < o.sumWeightOfThings()) {
+        } else if (this.sumWeightOfThings < o.getSumWeightOfThings()) {
             return -1;
-        } else return 0;
+        } else if (this.getAge() > o.getAge()) {
+            return 1;
+        } else if (this.getAge() < o.getAge()) {
+            return -1;
+        } else if (this.thingsInHands.size() > o.thingsInHands.size()) {
+            return 1;
+        } else if (this.thingsInHands.size() < o.thingsInHands.size()) {
+            return -1;
+        } else
+            return 0;
     }
     //end Comparable<Troll>
 
@@ -125,6 +139,7 @@ public class Troll extends Essence implements SkillsMove, SkillsState, SkillsMoo
     //Own Methods
     public void addThing(Thing t) {
         thingsInHands.add(t);
+        sumWeightOfThings += t.getWeight();
         System.out.println("Предмет " + t.getName() + " был дан троллю " + this.getName());
     }
 
@@ -148,13 +163,10 @@ public class Troll extends Essence implements SkillsMove, SkillsState, SkillsMoo
         }
     }
 
-    public int sumWeightOfThings() {
-        int w = 0;
-        for (Thing thingsInHand : thingsInHands) {
-            w += thingsInHand.getWeight();
-        }
-        return w;
+    public int getSumWeightOfThings() {
+        return sumWeightOfThings;
     }
+
     //end own Methods
 
     //override
@@ -168,21 +180,15 @@ public class Troll extends Essence implements SkillsMove, SkillsState, SkillsMoo
         if (getClass() != o.getClass())
             return false;
         Troll temp = (Troll) o;
-        if (temp.isSit != this.isSit)
-            return false;
-        if (temp.isSad != this.isSad)
-            return false;
         if (temp.getAge() != this.getAge())
             return false;
         if (!temp.getName().equals(this.getName()))
             return false;
         if (temp.getHP() != this.getHP())
             return false;
-        if (temp.getHungry() != this.getHungry())
-            return false;
         if (temp.thingsInHands.size() != this.thingsInHands.size())
             return false;
-        if (this.sumWeightOfThings() != temp.sumWeightOfThings())
+        if (this.sumWeightOfThings != temp.getSumWeightOfThings())
             return false;
         return true;
     }
@@ -207,7 +213,7 @@ public class Troll extends Essence implements SkillsMove, SkillsState, SkillsMoo
         } else {
             result = result * rnd + 33;
         }
-        result = result * rnd + thingsInHands.size() * sumWeightOfThings();
+        result = result * rnd + thingsInHands.size() * sumWeightOfThings;
         result = result * rnd + getName().hashCode();
         return result;
     }
